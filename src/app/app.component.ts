@@ -84,6 +84,7 @@ lon: any;
       this.spinner.hide();
       alert("Geolocation is not supported by this browser.");
     }
+    this.spinner.hide();
   }
   getWeatherForToday(){
     this.spinner.show();
