@@ -1,0 +1,43 @@
+{
+    "coord": {
+        "lon": 80.6356,
+        "lat": 16.5037
+    },
+    "weather": [
+        {
+            "id": 803,
+            "main": "Clouds",
+            "description": "broken clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 301.14,
+        "feels_like": 304.34,
+        "temp_min": 301.14,
+        "temp_max": 303.59,
+        "pressure": 1017,
+        "humidity": 74
+    },
+    "visibility": 6000,
+    "wind": {
+        "speed": 1.54,
+        "deg": 140
+    },
+    "clouds": {
+        "all": 75
+    },
+    "dt": 1707457320,
+    "sys": {
+        "type": 1,
+        "id": 9207,
+        "country": "IN",
+        "sunrise": 1707440773,
+        "sunset": 1707482230
+    },
+    "timezone": 19800,
+    "id": 1262947,
+    "name": "Mogalrājapuram",
+    "cod": 200
+}

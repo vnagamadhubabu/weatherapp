@@ -1,0 +1,372 @@
+<div class="dis d-flex flex-column min-vh-100">
+  <mat-toolbar class="gap-3 navt"
+    >Weather App
+    <mat-icon class="d-none d-md-block"
+      style="font-size: 44px; height: fit-content; width: 150px !important"
+      >cloud</mat-icon
+    >
+
+    <div class="container d-none d-md-block">
+      <div class="row">
+        <div class="col-12">
+          <input
+            type="number"
+            matInput
+            maxlength="256"
+            [(ngModel)]="lat"
+            placeholder="Latitude"
+            style="
+              border-top-left-radius: 20px;
+              border-bottom-left-radius: 20px;
+            "
+            required
+          />
+
+          <input
+            type="number"
+            matInput
+            maxlength="256"
+            [(ngModel)]="lon"
+            placeholder="Longitude"
+            required
+          />
+
+          <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="getWeatherForTodayManually(lat, lon)"
+            value="Search"
+            style="
+              border-top-right-radius: 20px;
+              border-bottom-right-radius: 20px;
+            "
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="position: relative;">
+      <div class="row justify-content-end text-end">
+        <div class="col-auto d-none d-lg-block">
+          <button
+            type="button"
+            mat-raised-button
+            color="accent"
+            (click)="getCurrentLocation()"
+          >
+            Get Current Location
+          </button>
+        </div>
+        <div *ngIf="weatherData" class="col-auto">
+          <mat-icon style="position: relative;"
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon=" location_on"
+          ></mat-icon>
+          {{ weatherData.name }}, {{ weatherData.sys.country }}
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div class="container">
+    <div class="row">
+      <div class="col-auto mob d-md-none">
+        <input
+          type="number"
+          matInput
+          maxlength="256"
+          [(ngModel)]="lat"
+          placeholder="Latitude"
+          style="border-top-left-radius: 20px; border-bottom-left-radius: 20px"
+          required
+        />
+
+        <input
+          type="number"
+          matInput
+          maxlength="256"
+          [(ngModel)]="lon"
+          placeholder="Longitude"
+          required
+        />
+
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="getWeatherForTodayManually(lat, lon)"
+          value="Search"
+          style="
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+          "
+        >
+          Search
+        </button>
+      </div>
+      <div class="col d-lg-none">
+        <div class="row justify-content-end text-end">
+          <div class="col-auto">
+            <button
+              type="button"
+              mat-raised-button
+              color="accent"
+              (click)="getCurrentLocation()"
+            >
+              Get Current Location
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2" *ngIf="weatherData">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mb-3">
+        <div class="container">
+          <mat-card>
+            <mat-card-content>
+              <div class="container mt-2" style="height: fit-content">
+                <div class="row">
+                  <div class="col-auto" style="color: gray; font-size: 10px">
+                    Latitude : {{ currLat }}
+                  </div>
+                  /
+                  <div
+                    class="col-auto text-start"
+                    style="color: gray; font-size: 10px"
+                  >
+                    Longitude : {{ currLng }}
+                  </div>
+                </div>
+                <div class="container mt-5 ">
+                  <div class="row">
+                    <div class="col-auto">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-auto fs-3">
+                            {{ currentTime | date : "shortTime" }}
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-auto" style="font-size: 15px">
+                            {{ currentDate | date : "fullDate" }}
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <mat-icon svgIcon="sunrise"></mat-icon> Sunrise
+                            {{
+                              weatherData.sys.sunrise * 1000
+                                | date : "shortTime"
+                            }}
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <mat-icon svgIcon="sunset"></mat-icon> Sunset
+                            {{
+                              weatherData.sys.sunset * 1000 | date : "shortTime"
+                            }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-lg-7 col-md-7 col-xl-7 col-sm-auto text-md-end text-lg-end mt-sm-2"
+                    >
+                      <p class="temp">
+                        {{
+                          kelvinToCelsius(weatherData.main.temp)
+                            | number : "1.2-2"
+                        }}°C<mat-icon
+                          style="
+                            font-size: 40px;
+                            height: fit-content;
+                            width: fit-content;
+                          "
+                          >thermostat</mat-icon
+                        >
+                      </p>
+                      <p>
+                        Feels like:
+                        {{
+                          kelvinToCelsius(weatherData.main.feels_like)
+                            | number : "1.2-2"
+                        }}°C
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="container mt-5">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-auto">
+                            <p class="forcast">Weather Forcast</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div
+                            class="col-auto"
+                            style="color: lightseagreen; font-size: 30px"
+                          >
+                            {{ weatherData.weather[0].main }}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-auto" style="color: gray">
+                            {{ weatherData.weather[0].description }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-7 text-end">
+                      <img
+                        class="saturate"
+                        *ngIf="weatherData.weather[0].icon"
+                        [src]="
+                          'https://openweathermap.org/img/wn/' +
+                          weatherData.weather[0].icon +
+                          '@2x.png'
+                        "
+                        alt="Weather Icon"
+                        style="width: 150px; height: auro"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+        <div class="container" *ngIf="weatherData">
+          <div class="row row-gap-2">
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="temp"></mat-icon>Maximum Temperature
+                </mat-card-header>
+                <mat-card-content class="text-center mt-2 fw-bold fs-4">
+                  {{
+                    kelvinToCelsius(weatherData.main.temp_max)
+                      | number : "1.2-2"
+                  }}°C
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="min_temp"></mat-icon>Minimum Temperature
+                </mat-card-header>
+                <mat-card-content class="text-center mt-2 fw-bold fs-4">
+                  {{
+                    kelvinToCelsius(weatherData.main.temp_min)
+                      | number : "1.2-2"
+                  }}°C
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="humidity"></mat-icon>Humidity
+                </mat-card-header>
+                <mat-card-content class="text-center mt-2 fw-bold fs-4"
+                  >{{ weatherData.main.humidity }}%
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="airp"></mat-icon>Wind
+                  Speed</mat-card-header
+                >
+                <mat-card-content class="text-center mt-2 fw-bold fs-4"
+                  >{{ weatherData.wind.speed }} m/s</mat-card-content
+                >
+              </mat-card>
+            </div>
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="cloud"></mat-icon
+                  >Cloudiness</mat-card-header
+                >
+                <mat-card-content class="text-center mt-2 fw-bold fs-4"
+                  >{{ weatherData.clouds.all }}%</mat-card-content
+                >
+              </mat-card>
+            </div>
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="pressure"></mat-icon
+                  >Pressure</mat-card-header
+                >
+                <mat-card-content class="text-center mt-2 fw-bold fs-4"
+                  >{{
+                    weatherData.main.pressure | number : "1.2-2"
+                  }}
+                  hPa</mat-card-content
+                >
+              </mat-card>
+            </div>
+            <div class="col-6">
+              <mat-card class="btt">
+                <mat-card-header class="text-center"
+                  ><mat-icon svgIcon="visibility"></mat-icon
+                  >Visibility</mat-card-header
+                >
+                <mat-card-content class="text-center mt-2 fw-bold fs-4"
+                  >{{
+                    weatherData.visibility / 1000 | number : "1.2-2"
+                  }}
+                  km</mat-card-content
+                >
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-auto">
+    <mat-toolbar class="foot h-auto">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <span style="color: darkblue; font-size: auto">Contact</span>
+          </div>
+          <div class="col-auto">
+            <mat-icon class="icon">email</mat-icon>
+            <a href="mailto:nagamadhubabuvikkurthi@gmail.com"
+              >nagamadhubabuvikkurthi@gmail.com
+            </a>
+          </div>
+          <div class="col-auto">
+            <mat-icon class="icon">phone</mat-icon>
+            <a href="tel:+917569736177">+917569736177</a>
+          </div>
+        </div>
+      </div>
+    </mat-toolbar>
+  </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.3)"
+  size="medium"
+  template="<img src='assets/loader.gif'>"
+  ><p style="color: blueviolet; font-size: 30px">Loading...</p></ngx-spinner
+>
+<router-outlet></router-outlet>

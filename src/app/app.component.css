@@ -1,0 +1,97 @@
+.temp{
+  font-size: 50px;
+  color: rgb(12, 8, 8);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.city{
+  background-color: black;
+  opacity: 10%;
+  width: fit-content;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+.forcast{
+  color:darkblue;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navt{
+  background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);
+}
+img{
+  stroke-opacity: 50px;
+}
+.saturate {
+  filter:drop-shadow(2px 4px 2px gray);
+}
+input{
+  border: none;
+  width: 150px;
+  height: auto;
+  font-size: 15px;
+  position: relative;
+}
+.mob>input{
+  width: 65px;
+  height: auto;
+  padding: 2px;
+  border: 1px solid gray;
+  font-size: 10px;
+  position: relative;
+  margin-top: 5px;
+}
+.mob>button{
+  width: 50px;
+  height: auto;
+  margin-bottom: 4.8px;
+  padding: 3px;
+  margin-top: 3px;
+  position: relative;
+}
+
+.btt{
+  height: 107px;
+  /* border-top: 1px solid black; */
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+::placeholder {
+  text-align: center; 
+}
+
+/* or, for legacy browsers */
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  text-align: center;  
+}
+
+:-ms-input-placeholder {  
+  text-align: center; 
+}
+mat-card{
+  background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+}
+.foot{
+  background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}
+a{
+  text-decoration: none;
+  font-size: 15px;
+  color:blue;
+
+}
+.icon{
+  font-size: 15px;
+  height: fit-content;
+  margin-left: 15px;
+  width: fit-content;
+}
